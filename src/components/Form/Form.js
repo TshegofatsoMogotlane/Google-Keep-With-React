@@ -1,20 +1,34 @@
 import React, { useState} from "react";
 import "./Form.css";
 const Form = () => {
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
 
+  const [userInput, setUserInput] = useState({
+    title:"",
+    text:"",
+  })
   const titleChangeHandler = (event)=>{
-    setTitle(event.target.value)
+    setUserInput((prevState)=>{
+      return{
+        ...prevState,
+        title:event.target.value
+      }
+    })
   }
 
   const textChangeHandler = (event)=>{
-    setText(event.target.value)
+    setUserInput((prevState)=>{
+      return{
+        ...prevState,
+        text:event.target.value
+      }
+    })
   }
   const submitFormHandler = (event)=>{
     event.preventDefault();
-    setTitle("");
-    setText("");
+    setUserInput({
+      title:"",
+      text:""
+    })
 
   }
   return (
@@ -41,8 +55,8 @@ const Form = () => {
 
       <div className="form-container active-form">
         <form onSubmit={submitFormHandler}  id="form">
-          <input type="text" value={title} className="note-title" placeholder="Title" onChange={titleChangeHandler}/>
-          <input type="text" value={text} className="note-text" placeholder="Take a note..." onChange={textChangeHandler} />
+          <input type="text" value={userInput.title} className="note-title" placeholder="Title" onChange={titleChangeHandler}/>
+          <input type="text" value={userInput.text} className="note-text" placeholder="Take a note..." onChange={textChangeHandler} />
           <div className="form-actions">
             <div className="icons">
               <div className="tooltip">
