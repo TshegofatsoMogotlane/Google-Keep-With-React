@@ -1,25 +1,36 @@
-import logo from './logo.svg';
-import './App.css';
-
-function App() {
+import Sidebar from "./components/Sidebar/Sidebar";
+import { Navbar } from "./components/Navbar/Navbar";
+import Form from "./components/Form/Form";
+import Notes from "./components/Notes/Notes";
+import Modal from "./components/Modal/Modal";
+export const App=()=>{
+  const notes = [
+    {
+      id:123,
+      title:"title1",
+      text: "text1",
+    },
+    {
+      id:124,
+      title:"title2",
+      text: "text2",
+    },
+    {
+      id:125,
+      title:"title3",
+      text: "text3",
+    }
+  ]
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <Sidebar />
+      <Navbar/>
+      <Form/>
+      <Notes notes={notes}/>
+      <Modal/>
     </div>
   );
 }
+
 
 export default App;
