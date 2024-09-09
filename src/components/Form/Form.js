@@ -26,57 +26,29 @@ const Form = (props) => {
     setText("");
   };
   const formClickHandler = () => {
-    setIsActiveForm(true)
+    setIsActiveForm(true);
   };
   return (
     <>
-      {!isActiveForm ? (
-        <div
-          className="form-container"
-          inactive-form
-          onClick={formClickHandler}
-        >
-          <form>
+      <div className="form-container active-form" onClick={formClickHandler}>
+        <form className="form" id="form" onSubmit={submitFormHandler}>
+          {isActiveForm && (
             <input
+              onChange={titleChangeHandler}
+              id="note-title"
               type="text"
-              className="note-text"
-              placeholder="Take a note..."
-            />
-            <div className="form-actions">
-              <div className="tooltip">
-                <span className="material-symbols-outlined hover">
-                  check_box
-                </span>
-                <span className="tooltip-text">New List</span>
-              </div>
-              <div className="tooltip">
-                <span className="material-symbols-outlined hover">brush</span>
-                <span className="tooltip-text">New Drawing</span>
-              </div>
-              <div className="tooltip">
-                <span className="material-symbols-outlined hover">image</span>
-                <span className="tooltip-text">New Image</span>
-              </div>
-            </div>
-          </form>
-        </div>
-      ) : (
-        <div className="form-container active-form">
-          <form onSubmit={submitFormHandler} id="form">
-            <input
-              type="text"
-              value={title}
               className="note-title"
               placeholder="Title"
-              onChange={titleChangeHandler}
             />
-            <input
-              type="text"
-              value={text}
-              className="note-text"
-              placeholder="Take a note..."
-              onChange={textChangeHandler}
-            />
+          )}
+          <input
+            onChange={textChangeHandler}
+            id="note-text"
+            type="text"
+            className="note-text"
+            placeholder="Take a note..."
+          />
+          {isActiveForm ? (
             <div className="form-actions">
               <div className="icons">
                 <div className="tooltip">
@@ -130,11 +102,35 @@ const Form = (props) => {
               </div>
               <button className="close-btn">close</button>
             </div>
-          </form>
-        </div>
-      )}
+          ) : (
+            <div className="form-actions">
+              <div className="tooltip">
+                <span className="material-symbols-outlined hover">
+                  check_box
+                </span>
+                <span className="tooltip-text">New List</span>
+              </div>
+              <div className="tooltip">
+                <span className="material-symbols-outlined hover">brush</span>
+                <span className="tooltip-text">New Drawing</span>
+              </div>
+              <div className="tooltip">
+                <span className="material-symbols-outlined hover">image</span>
+                <span className="tooltip-text">New Image</span>
+              </div>
+            </div>
+          )}
+        </form>
+      </div>
     </>
   );
 };
 
 export default Form;
+
+// { <div className="form-container inactive-form" onClick={formClickHandler}>
+// <form>
+//   <input type="text" className="note-text" placeholder="Take a note..." />
+
+// </form>
+// </div>}
