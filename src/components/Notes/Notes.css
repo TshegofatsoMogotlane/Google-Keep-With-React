@@ -27,6 +27,7 @@
       display: flex;
       padding: 0;
       justify-content: center;
+      visibility: hidden;
     }
     
     .note-footer .material-symbols-outlined {

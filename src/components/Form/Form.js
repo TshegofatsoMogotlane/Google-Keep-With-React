@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import "./Form.css";
+import { uid } from "uid"
 const Form = (props) => {
   const [title, setTitle] = useState("");
   const [text, setText] = useState("");
@@ -17,10 +18,11 @@ const Form = (props) => {
 
     //The object
     const note = {
-      id: "",
+      id: uid(),
       title,
       text,
     };
+    console.log(note)
     props.addNote(note);
     setTitle("");
     setText("");
@@ -127,10 +129,3 @@ const Form = (props) => {
 };
 
 export default Form;
-
-// { <div className="form-container inactive-form" onClick={formClickHandler}>
-// <form>
-//   <input type="text" className="note-text" placeholder="Take a note..." />
-
-// </form>
-// </div>}

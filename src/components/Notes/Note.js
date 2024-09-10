@@ -3,20 +3,30 @@ import React, { useState } from 'react'
 const Note = (props) => {
   const [title, setTitle] = useState(props.title)
   const [text, setText] = useState(props.text)
+  const [isHover, setIsHover]=useState(false)
   const noteClickHandler = ()=>{
     setTitle("Changed Title");
     setText("Changed Text")
 
   }
+  const onmouseOverHanlder = ()=>{
+   setIsHover(true)
+  }
+  const onmouseOutHanlder = ()=>{
+    setIsHover(false)
+  }
+  const deleteNoteHandler = ()=>{
+    props.deleteNote(props.id)
+  }
   return (
     <div>
-      <div className="note" onClick={noteClickHandler}>
-          <span className="material-symbols-outlined check-circle">
-            check_circle
-          </span>
+      <div className="note" id={props.id} onClick={noteClickHandler} onMouseOver={onmouseOverHanlder} onMouseOut={onmouseOutHanlder}>
           <div className="title">{title}</div>
           <div className="text">{text}</div>
-          <div className="note-footer">
+          {isHover &&<span className="material-symbols-outlined check-circle">
+            check_circle
+          </span>}
+          <div className="note-footer" style={{visibility:isHover?"visible":"hidden"}}>
             <div className="tooltip">
               <span className="material-symbols-outlined hover small-icon">
                 add_alert
@@ -41,11 +51,11 @@ const Note = (props) => {
               </span>
               <span className="tooltip-text">Add Image</span>
             </div>
-            <div className="tooltip">
+            <div className="tooltip" onClick={deleteNoteHandler}>
               <span className="material-symbols-outlined hover small-icon">
                 archive
               </span>
-              <span className="tooltip-text">Archive</span>
+              <span className="tooltip-text" >Archive</span>
             </div>
             <div className="tooltip">
               <span className="material-symbols-outlined hover small-icon">

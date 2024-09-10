@@ -18,12 +18,17 @@ export const App=()=>{
       ]
     })
   }
+  const deleteNote =(id)=>{
+    setNotes((prevNotes)=>{
+      return prevNotes.filter((note)=>note.id !== id)
+    })
+  }
   return (
     <div className="App">
       <Sidebar />
       <Navbar/>
       <Form addNote={addNote}/>
-      <Notes notes={notes}/>
+      <Notes notes={notes} deleteNote={deleteNote}/>
       <Modal/>
     </div>
   );

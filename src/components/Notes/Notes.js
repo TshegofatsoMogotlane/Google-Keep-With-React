@@ -3,7 +3,7 @@ import "./Notes.css";
 import Note from "./Note";
 import NoNotes from "../NoNotes/NoNotes";
 const Notes = (props) => {
-  const { notes } = props;
+  const { notes, deleteNote } = props;
   return (
     <div>
       <div className="notes">
@@ -16,6 +16,7 @@ const Notes = (props) => {
               id={note.id}
               title={note.title}
               text={note.text}
+              deleteNote={deleteNote}
             />
           ))
         )}
