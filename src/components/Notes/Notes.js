@@ -3,7 +3,7 @@ import "./Notes.css";
 import Note from "./Note";
 import NoNotes from "../NoNotes/NoNotes";
 const Notes = (props) => {
-  const { notes, deleteNote } = props;
+  const { notes, deleteNote, toggleModal, setSelectedNote} = props;
   return (
     <div>
       <div className="notes">
@@ -13,10 +13,10 @@ const Notes = (props) => {
           notes.map((note, index) => (
             <Note
               key={note.index}
-              id={note.id}
-              title={note.title}
-              text={note.text}
+              note={note}
               deleteNote={deleteNote}
+              toggleModal={toggleModal}
+              setSelectedNote={setSelectedNote}
             />
           ))
         )}

@@ -2,9 +2,11 @@ import React, { useState } from "react";
 import "./Form.css";
 import { uid } from "uid"
 const Form = (props) => {
-  const [title, setTitle] = useState("");
-  const [text, setText] = useState("");
-  const [isActiveForm, setIsActiveForm] = useState(false);
+
+  const { edit, selectedNote, toggleModal} =props;
+  const [title, setTitle] = useState((edit && selectedNote.title )|| "");
+  const [text, setText] = useState((edit && selectedNote.text )|| "");
+  const [isActiveForm, setIsActiveForm] = useState(edit);
 
   const titleChangeHandler = (event) => {
     setTitle(event.target.value);
@@ -16,14 +18,18 @@ const Form = (props) => {
   const submitFormHandler = (event) => {
     event.preventDefault();
 
-    //The object
-    const note = {
-      id: uid(),
-      title,
-      text,
-    };
-    console.log(note)
-    props.addNote(note);
+    if(!edit){
+      const note = {
+        id: uid(),
+        title,
+        text,
+      };
+      props.addNote(note);
+      setIsActiveForm(false)
+    }
+    else{
+      toggleModal();
+    }
     setTitle("");
     setText("");
   };
@@ -33,11 +39,11 @@ const Form = (props) => {
   return (
     <>
       <div className="form-container active-form" onClick={formClickHandler}>
-        <form className={isActiveForm?"form":""} id="form" onSubmit={submitFormHandler}>
+        <form className={isActiveForm?"form":""}  onSubmit={submitFormHandler}>
           {isActiveForm && (
             <input
               onChange={titleChangeHandler}
-              id="note-title"
+              value={title}
               type="text"
               className="note-title"
               placeholder="Title"
@@ -45,7 +51,7 @@ const Form = (props) => {
           )}
           <input
             onChange={textChangeHandler}
-            id="note-text"
+            value={text}
             type="text"
             className="note-text"
             placeholder="Take a note..."

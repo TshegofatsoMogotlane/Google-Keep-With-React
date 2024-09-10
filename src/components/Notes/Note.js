@@ -1,12 +1,16 @@
 import React, { useState } from 'react'
 
 const Note = (props) => {
-  const [title, setTitle] = useState(props.title)
-  const [text, setText] = useState(props.text)
+  console.log(props)
+  const {toggleModal,note,setSelectedNote} = props;
+  const [title, setTitle] = useState(note.title)
+  const [text, setText] = useState(note.text)
   const [isHover, setIsHover]=useState(false)
   const noteClickHandler = ()=>{
-    setTitle("Changed Title");
-    setText("Changed Text")
+    setTitle(title);
+    setText(text);
+    toggleModal();
+    setSelectedNote(note);
 
   }
   const onmouseOverHanlder = ()=>{
@@ -16,7 +20,7 @@ const Note = (props) => {
     setIsHover(false)
   }
   const deleteNoteHandler = ()=>{
-    props.deleteNote(props.id)
+    props.deleteNote(note.id)
   }
   return (
     <div>

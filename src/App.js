@@ -9,6 +9,8 @@ const  NOTES = []
 
 export const App=()=>{
   const [notes, setNotes] = useState(NOTES);
+  const [selectedNote, setSelectedNote] = useState({});
+  const [isModalOpen, setIsModalOpen]=useState(false)
   
   const addNote =(note)=>{
     setNotes((prevNotes)=>{
@@ -16,6 +18,11 @@ export const App=()=>{
         ...notes,
         note
       ]
+    })
+  }
+  const toggleModal = ()=>{
+    setIsModalOpen((prevState)=>{
+      return !prevState
     })
   }
   const deleteNote =(id)=>{
@@ -27,9 +34,9 @@ export const App=()=>{
     <div className="App">
       <Sidebar />
       <Navbar/>
-      <Form addNote={addNote}/>
-      <Notes notes={notes} deleteNote={deleteNote}/>
-      <Modal/>
+      <Form addNote={addNote} selectedNote={selectedNote} toggleModal={toggleModal}/>
+      <Notes notes={notes} deleteNote={deleteNote} toggleModal={toggleModal} setSelectedNote={setSelectedNote}/>
+      {isModalOpen && <Modal isModalOpen={isModalOpen} selectedNote={selectedNote} toggleModal={toggleModal}/>}
     </div>
   );
 }
